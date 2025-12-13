@@ -347,6 +347,10 @@ body {
     border-radius: 15px;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 .service-card__illustration{
     display: flex;
@@ -435,14 +439,13 @@ body {
     display: flex;
     width: 100%;
     margin-top: 10rem;
-    justify-content: space-between;
+    justify-content: center;
     padding-bottom: 5rem;
+    align-items: center;
+    text-align: center;
 }
-.contact__form{
-    width: 100%;
-    max-width: 450px;
-    margin-left: auto;
-    margin-right: auto;
+.contact a {
+    color: white;
 }
 .contact__illustration{
     display: none;
@@ -626,7 +629,7 @@ body {
     .service-card__illustration{
         width: 100%;
         max-width: 150px;
-        height: 150px;
+        /* height: 150px; */
     }
 }
 
