@@ -47,7 +47,7 @@ window.addEventListener('resize', ()=>{
 
 // As the user scrolls, the active link should change based on the section currently displayed on the screen.
 window.addEventListener('scroll', ()=>{
-  const sections = document.querySelectorAll('#heroHeader, #skills, #works, #experience');
+  const sections = document.querySelectorAll('#heroHeader, #skills, #works, #experience', '#contact');
 
   // Loop through sections and check if they are visible
   sections.forEach((section) => {
