@@ -1,82 +1,675 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Janice Diola's Birthday</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="James Masangcay — Full Stack Developer portfolio" />
+    <title>James Masangcay | Portfolio</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --vp-c-brand-1: #42d392;
+        --vp-c-brand-2: #42b883;
+        --vp-c-brand-3: #33a06f;
+        --vp-c-bg: #ffffff;
+        --vp-c-bg-alt: #f6f6f7;
+        --vp-c-bg-elv: #ffffff;
+        --vp-c-text-1: #3c3c43;
+        --vp-c-text-2: #67676c;
+        --vp-c-text-3: #a3a3a8;
+        --vp-c-divider: rgba(60, 60, 67, 0.12);
+        --vp-c-gutter: rgba(60, 60, 67, 0.08);
+        --vp-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+        --vp-shadow-2: 0 3px 12px rgba(0, 0, 0, 0.07), 0 1px 4px rgba(0, 0, 0, 0.05);
+        --vp-nav-height: 64px;
+        font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-optical-sizing: auto;
+        line-height: 1.6;
+        font-weight: 400;
+        color-scheme: light;
+        background: var(--vp-c-bg);
+        color: var(--vp-c-text-1);
+      }
 
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
-    
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
+      html.dark {
+        color-scheme: dark;
+        --vp-c-bg: #1b1b1f;
+        --vp-c-bg-alt: #161618;
+        --vp-c-bg-elv: #252529;
+        --vp-c-text-1: rgba(255, 255, 245, 0.92);
+        --vp-c-text-2: rgba(235, 235, 245, 0.6);
+        --vp-c-text-3: rgba(235, 235, 245, 0.38);
+        --vp-c-divider: rgba(82, 82, 89, 0.32);
+        --vp-c-gutter: rgba(82, 82, 89, 0.2);
+        --vp-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.2);
+        --vp-shadow-2: 0 3px 12px rgba(0, 0, 0, 0.35);
+      }
 
-    <link rel="stylesheet" href="css/aos.css">
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
 
-    <link rel="stylesheet" href="css/ionicons.min.css">
-    
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
+      body {
+        margin: 0;
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+        background: var(--vp-c-bg);
+        color: var(--vp-c-text-1);
+      }
+
+      a {
+        color: var(--vp-c-brand-1);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+
+      a:hover {
+        color: var(--vp-c-brand-2);
+      }
+
+      .skip {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        padding: 0.5rem 1rem;
+        background: var(--vp-c-brand-1);
+        color: #1a1a1a;
+        z-index: 100;
+      }
+
+      .skip:focus {
+        left: 0;
+      }
+
+      .vp-nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        min-height: var(--vp-nav-height);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 24px;
+        background: var(--vp-c-bg);
+        border-bottom: 1px solid var(--vp-c-divider);
+        backdrop-filter: blur(8px);
+      }
+
+      @media (min-width: 768px) {
+        .vp-nav {
+          padding: 0 32px;
+        }
+      }
+
+      .vp-nav__brand {
+        font-weight: 700;
+        font-size: 1.125rem;
+        letter-spacing: -0.02em;
+        color: var(--vp-c-text-1);
+      }
+
+      .vp-nav__brand span {
+        color: var(--vp-c-brand-1);
+      }
+
+      .vp-nav__links {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .vp-nav__links a {
+        color: var(--vp-c-text-2);
+        font-weight: 500;
+        font-size: 0.875rem;
+        padding: 6px 12px;
+        border-radius: 8px;
+        transition: color 0.2s, background 0.2s;
+      }
+
+      .vp-nav__links a:hover {
+        color: var(--vp-c-text-1);
+        background: var(--vp-c-gutter);
+      }
+
+      a.vp-nav__resume {
+        border: 1px solid var(--vp-c-divider);
+        color: var(--vp-c-brand-1) !important;
+      }
+
+      a.vp-nav__resume:hover {
+        border-color: var(--vp-c-brand-1);
+        background: var(--vp-c-gutter);
+        color: var(--vp-c-brand-2) !important;
+      }
+
+      .theme-toggle {
+        margin-left: 8px;
+        width: 40px;
+        height: 40px;
+        border: 0;
+        border-radius: 8px;
+        background: transparent;
+        color: var(--vp-c-text-2);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s, color 0.2s;
+      }
+
+      .theme-toggle:hover {
+        background: var(--vp-c-gutter);
+        color: var(--vp-c-text-1);
+      }
+
+      .theme-toggle svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .vp-hero {
+        padding: 48px 24px 64px;
+        text-align: center;
+        border-bottom: 1px solid var(--vp-c-divider);
+        background: linear-gradient(180deg, var(--vp-c-bg-alt) 0%, var(--vp-c-bg) 100%);
+      }
+
+      @media (min-width: 768px) {
+        .vp-hero {
+          padding: 72px 32px 88px;
+        }
+      }
+
+      .vp-hero__eyebrow {
+        font-size: 0.9375rem;
+        color: var(--vp-c-text-2);
+        margin: 0 0 12px;
+      }
+
+      .vp-hero__title {
+        margin: 0;
+        font-size: clamp(2.5rem, 6vw, 3.75rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1.1;
+        background: linear-gradient(120deg, var(--vp-c-brand-1) 0%, var(--vp-c-brand-2) 45%, var(--vp-c-text-1) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      html.dark .vp-hero__title {
+        background: linear-gradient(120deg, var(--vp-c-brand-1) 0%, #7ee0b8 50%, rgba(255, 255, 245, 0.92) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+      }
+
+      .vp-hero__tagline {
+        max-width: 42rem;
+        margin: 20px auto 0;
+        font-size: 1.125rem;
+        color: var(--vp-c-text-2);
+        line-height: 1.7;
+      }
+
+      .vp-hero__actions {
+        margin-top: 32px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+      }
+
+      .vp-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 22px;
+        height: 48px;
+        font-size: 0.9375rem;
+        font-weight: 600;
+        font-family: inherit;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: transform 0.15s, box-shadow 0.2s, background 0.2s, border-color 0.2s;
+      }
+
+      .vp-btn:active {
+        transform: scale(0.98);
+      }
+
+      .vp-btn--brand {
+        background: var(--vp-c-brand-1);
+        color: #0d1f17;
+        box-shadow: var(--vp-shadow-1);
+      }
+
+      .vp-btn--brand:hover {
+        background: var(--vp-c-brand-2);
+        box-shadow: var(--vp-shadow-2);
+      }
+
+      .vp-btn--alt {
+        background: var(--vp-c-bg-elv);
+        color: var(--vp-c-text-1);
+        border-color: var(--vp-c-divider);
+      }
+
+      .vp-btn--alt:hover {
+        border-color: var(--vp-c-brand-1);
+        color: var(--vp-c-brand-1);
+      }
+
+      .vp-section {
+        padding: 56px 24px;
+        max-width: 1152px;
+        margin: 0 auto;
+      }
+
+      @media (min-width: 768px) {
+        .vp-section {
+          padding: 72px 32px;
+        }
+      }
+
+      .vp-section__title {
+        margin: 0 0 12px;
+        font-size: 1.75rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        text-align: center;
+      }
+
+      .vp-section__lead {
+        margin: 0 auto 40px;
+        max-width: 36rem;
+        text-align: center;
+        color: var(--vp-c-text-2);
+        font-size: 1rem;
+      }
+
+      .feature-grid {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: 1fr;
+      }
+
+      @media (min-width: 640px) {
+        .feature-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 960px) {
+        .feature-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .feature-card {
+        padding: 24px;
+        border-radius: 12px;
+        background: var(--vp-c-bg-elv);
+        border: 1px solid var(--vp-c-divider);
+        box-shadow: var(--vp-shadow-1);
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+
+      .feature-card:hover {
+        border-color: rgba(66, 211, 146, 0.35);
+        box-shadow: var(--vp-shadow-2);
+      }
+
+      .feature-card__icon {
+        font-size: 1.75rem;
+        line-height: 1;
+        margin-bottom: 12px;
+      }
+
+      .feature-card h3 {
+        margin: 0 0 8px;
+        font-size: 1.0625rem;
+        font-weight: 600;
+      }
+
+      .feature-card p {
+        margin: 0;
+        font-size: 0.875rem;
+        color: var(--vp-c-text-2);
+        line-height: 1.6;
+      }
+
+      .timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .exp-card {
+        padding: 24px 28px;
+        border-radius: 12px;
+        background: var(--vp-c-bg-alt);
+        border: 1px solid var(--vp-c-divider);
+      }
+
+      .exp-card__meta {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--vp-c-brand-1);
+        letter-spacing: 0.02em;
+        margin-bottom: 6px;
+      }
+
+      .exp-card h3 {
+        margin: 0 0 4px;
+        font-size: 1.125rem;
+        font-weight: 600;
+      }
+
+      .exp-card__role {
+        margin: 0 0 14px;
+        font-size: 0.9375rem;
+        color: var(--vp-c-text-2);
+        font-weight: 500;
+      }
+
+      .exp-card p {
+        margin: 0;
+        font-size: 0.9375rem;
+        color: var(--vp-c-text-2);
+        line-height: 1.7;
+      }
+
+      .contact-grid {
+        display: grid;
+        gap: 16px;
+        max-width: 36rem;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .contact-item {
+        padding: 16px 20px;
+        border-radius: 10px;
+        background: var(--vp-c-bg-elv);
+        border: 1px solid var(--vp-c-divider);
+      }
+
+      .contact-item strong {
+        display: block;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--vp-c-text-3);
+        margin-bottom: 6px;
+      }
+
+      .contact-item a,
+      .contact-item span {
+        color: var(--vp-c-text-1);
+        font-weight: 500;
+      }
+
+      .vp-footer {
+        padding: 32px 24px;
+        text-align: center;
+        font-size: 0.875rem;
+        color: var(--vp-c-text-3);
+        border-top: 1px solid var(--vp-c-divider);
+        background: var(--vp-c-bg-alt);
+      }
+    </style>
   </head>
-  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-	  
-	<div id="body">
-		<img src="images/janice.jpg" style="width: 350px; margin: auto;">
-		<h1>Happy Birthday Bebsy! (Janice Diola) </h1>
-		<p>
-			God gave you another birthday to live your life to the fullest. You may have ups and downs, and it's not always <br>
-			as good as you planned it, but God has a better plan for you. <br>
-			<br>
-			I love you from the bottom of my heart.<br>
-			-Your Bebs
-		</p>
-	</div>
-	<style>
-		#body {
-			text-align: center;
-      padding-bottom: 250px;
-		}
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
 
-		h1 {
-			margin-top: 30px;
-			color: white !important;
-		}
+    <header class="vp-nav">
+      <a class="vp-nav__brand" href="#">James<span>.</span></a>
+      <nav aria-label="Primary">
+        <ul class="vp-nav__links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li>
+            <a class="vp-nav__resume" href="james_updated.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+          </li>
+          <li><a href="#contact">Contact</a></li>
+          <li>
+            <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+              <span class="icon-sun" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                </svg>
+              </span>
+              <span class="icon-moon" hidden aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+                </svg>
+              </span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </header>
 
-		p {
-			color: white !important;
-		}
+    <main id="main">
+      <section class="vp-hero" id="home" aria-labelledby="hero-title">
+        <p class="vp-hero__eyebrow">Hello there! I am</p>
+        <h1 class="vp-hero__title" id="hero-title">James</h1>
+        <p class="vp-hero__tagline">
+          I am a seasoned Full Stack Developer with over 6 years of experience in software development, specializing in
+          building scalable, secure, and high-performance applications. My expertise spans both back-end and front-end
+          development — from designing robust server-side logic with Laravel and creating RESTful APIs, to implementing
+          dynamic, user-friendly interfaces with modern JavaScript frameworks.
+        </p>
+        <div class="vp-hero__actions">
+          <a class="vp-btn vp-btn--brand" href="#contact">Get in touch</a>
+          <a class="vp-btn vp-btn--alt" href="james_updated.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+          <a class="vp-btn vp-btn--alt" href="#experience">View experience</a>
+        </div>
+      </section>
 
-		body {
-			background: url(images/annie-spratt-u9skEqysM1g-unsplash.jpg) no-repeat center center fixed; 
-			-webkit-background-size: cover;
-			-moz-background-size: cover;
-			-o-background-size: cover;
-			background-size: cover;
-		}
-	</style>
+      <section class="vp-section" id="skills" aria-labelledby="skills-title">
+        <h2 class="vp-section__title" id="skills-title">Skills</h2>
+        <p class="vp-section__lead">
+          Technologies I use to ship reliable products — organized like the feature grid you know from modern Vue docs.
+        </p>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-card__icon" aria-hidden="true">⚡</div>
+            <h3>Laravel</h3>
+            <p>Server-side logic, RESTful APIs, and secure application architecture.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-card__icon" aria-hidden="true">🟢</div>
+            <h3>Node.js</h3>
+            <p>Lightweight services, integrations, and performance-focused backends.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-card__icon" aria-hidden="true">🐘</div>
+            <h3>PHP</h3>
+            <p>From modern OOP to framework-backed delivery at scale.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-card__icon" aria-hidden="true">⚛️</div>
+            <h3>React</h3>
+            <p>Dynamic interfaces and component-driven frontends.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-card__icon" aria-hidden="true">💚</div>
+            <h3>Vue</h3>
+            <p>Progressive UIs and maintainable client-side architecture.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-card__icon" aria-hidden="true">🅰️</div>
+            <h3>Angular</h3>
+            <p>Structured SPAs and enterprise-friendly patterns.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-card__icon" aria-hidden="true">📄</div>
+            <h3>HTML</h3>
+            <p>Semantic markup and accessible structure.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-card__icon" aria-hidden="true">🎨</div>
+            <h3>CSS</h3>
+            <p>Layout, responsive design, and polished presentation.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-card__icon" aria-hidden="true">✨</div>
+            <h3>JavaScript</h3>
+            <p>Modern language features across stack and tooling.</p>
+          </article>
+        </div>
+      </section>
 
-  <!-- loader -->
-  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+      <section class="vp-section" id="experience" aria-labelledby="exp-title">
+        <h2 class="vp-section__title" id="exp-title">My experience</h2>
+        <p class="vp-section__lead">Roles where I owned delivery, APIs, and collaboration across teams.</p>
+        <div class="timeline">
+          <article class="exp-card">
+            <div class="exp-card__meta">2024 — Present</div>
+            <h3>Custodia</h3>
+            <p class="exp-card__role">Senior Web Developer</p>
+            <p>
+              Hybrid role in Canada: Laravel server-side logic and RESTful APIs for web and mobile; dynamic UIs;
+              performance and security; Node.js for lightweight services and integrations; code reviews and cross-functional
+              collaboration.
+            </p>
+          </article>
+          <article class="exp-card">
+            <div class="exp-card__meta">2023 — 2024</div>
+            <h3>30K Ft AU</h3>
+            <p class="exp-card__role">Senior Web Developer</p>
+            <p>
+              Freight and warehouse tracking: features on an existing platform with PHP and Laravel; CI/CD with Bitbucket
+              and Jira; Node.js modular services for flexibility and scale; international team collaboration.
+            </p>
+          </article>
+          <article class="exp-card">
+            <div class="exp-card__meta">2022 — 2023</div>
+            <h3>Arcanys</h3>
+            <p class="exp-card__role">Senior Web Developer</p>
+            <p>
+              Mortgage and insurance: Vue.js frontends and Laravel backends; secure, scalable systems; internal workflows,
+              customer experience, and reliable data processing.
+            </p>
+          </article>
+          <article class="exp-card">
+            <div class="exp-card__meta">2021 — 2022</div>
+            <h3>Summit Media</h3>
+            <p class="exp-card__role">Senior Web Developer</p>
+            <p>
+              Internal apps and multiple projects with strong ownership; special execution ads; AWS; visual recognition
+              systems co-development; Laravel APIs and Node.js for services and prototyping.
+            </p>
+          </article>
+          <article class="exp-card">
+            <div class="exp-card__meta">2020 — 2021</div>
+            <h3>VeritasPay</h3>
+            <p class="exp-card__role">Mid Web Developer</p>
+            <p>
+              Payment gateway on .NET Core; Azure and MSSQL; multi-tenant microservices; UI/UX; Laravel for auth flows;
+              Node.js for scalable services and real-time transaction handling.
+            </p>
+          </article>
+          <article class="exp-card">
+            <div class="exp-card__meta">2020</div>
+            <h3>Spark Global Tech</h3>
+            <p class="exp-card__role">Software Engineer</p>
+            <p>
+              Legacy PHP to modern Laravel; microservices; Vue widgets; server and repo maintenance; mentoring juniors;
+              Node.js alongside Laravel for event-driven components.
+            </p>
+          </article>
+          <article class="exp-card">
+            <div class="exp-card__meta">2019 — 2020</div>
+            <h3>XChanged</h3>
+            <p class="exp-card__role">Full Stack Developer</p>
+            <p>
+              Remittance APIs and mobile apps; CMS design and build; Laravel token-based auth; legacy PHP to OOP; React
+              Native features; Node.js for real-time processing and API responsiveness.
+            </p>
+          </article>
+        </div>
+      </section>
 
+      <section class="vp-section" id="contact" aria-labelledby="contact-title">
+        <h2 class="vp-section__title" id="contact-title">Let’s connect</h2>
+        <p class="vp-section__lead">Reach out for opportunities or a conversation about your next build.</p>
+        <div class="contact-grid">
+          <div class="contact-item">
+            <strong>Email</strong>
+            <a href="mailto:jameskyurem@gmail.com">jameskyurem@gmail.com</a>
+          </div>
+          <div class="contact-item">
+            <strong>Phone</strong>
+            <a href="tel:+639302077586">+63 930 207 7586</a>
+          </div>
+          <div class="contact-item">
+            <strong>LinkedIn</strong>
+            <a href="https://www.linkedin.com/in/james-masangcay" target="_blank" rel="noopener noreferrer"
+              >linkedin.com/in/james-masangcay</a
+            >
+          </div>
+          <div class="contact-item">
+            <strong>GitHub</strong>
+            <a href="https://github.com/huhu2323" target="_blank" rel="noopener noreferrer">github.com/huhu2323</a>
+          </div>
+        </div>
+      </section>
+    </main>
 
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/scrollax.min.js"></script>
-  
-  <script src="js/main.js"></script>
-    
+    <footer class="vp-footer">
+      <p>© 2026 James Masangcay. All rights reserved.</p>
+    </footer>
+
+    <script>
+      (function () {
+        var root = document.documentElement;
+        var key = 'portfolio-theme';
+        var stored = localStorage.getItem(key);
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        function apply(dark) {
+          root.classList.toggle('dark', dark);
+          localStorage.setItem(key, dark ? 'dark' : 'light');
+          var btn = document.getElementById('theme-toggle');
+          if (!btn) return;
+          var sun = btn.querySelector('.icon-sun');
+          var moon = btn.querySelector('.icon-moon');
+          if (dark) {
+            sun.setAttribute('hidden', '');
+            moon.removeAttribute('hidden');
+          } else {
+            moon.setAttribute('hidden', '');
+            sun.removeAttribute('hidden');
+          }
+        }
+
+        if (stored === 'dark' || (!stored && prefersDark)) apply(true);
+        else apply(false);
+
+        document.getElementById('theme-toggle').addEventListener('click', function () {
+          apply(!root.classList.contains('dark'));
+        });
+      })();
+    </script>
   </body>
 </html>
