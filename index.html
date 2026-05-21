@@ -95,11 +95,13 @@
         top: 0;
         z-index: 50;
         min-height: var(--vp-nav-height);
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+          'brand toggle'
+          'menu menu';
         align-items: center;
-        justify-content: space-between;
-        gap: 12px;
+        gap: 0 12px;
         padding: 12px 24px;
         background: var(--vp-c-bg);
         border-bottom: 1px solid var(--vp-c-divider);
@@ -108,11 +110,131 @@
 
       @media (min-width: 768px) {
         .vp-nav {
+          grid-template-areas: 'brand menu';
           padding: 0 32px;
+        }
+
+        .vp-nav__menu {
+          justify-self: end;
+        }
+      }
+
+      .vp-nav__toggle {
+        grid-area: toggle;
+        display: none;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        border: 0;
+        border-radius: 8px;
+        background: transparent;
+        color: var(--vp-c-text-2);
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s, color 0.2s;
+      }
+
+      .vp-nav__toggle:hover {
+        background: var(--vp-c-gutter);
+        color: var(--vp-c-text-1);
+      }
+
+      .vp-nav__toggle-icon {
+        position: relative;
+        display: block;
+        width: 20px;
+        height: 2px;
+        background: currentColor;
+        border-radius: 1px;
+        transition: background 0.2s;
+      }
+
+      .vp-nav__toggle-icon::before,
+      .vp-nav__toggle-icon::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 20px;
+        height: 2px;
+        background: currentColor;
+        border-radius: 1px;
+        transition: transform 0.2s, top 0.2s;
+      }
+
+      .vp-nav__toggle-icon::before {
+        top: -6px;
+      }
+
+      .vp-nav__toggle-icon::after {
+        top: 6px;
+      }
+
+      .vp-nav.is-open .vp-nav__toggle-icon {
+        background: transparent;
+      }
+
+      .vp-nav.is-open .vp-nav__toggle-icon::before {
+        top: 0;
+        transform: rotate(45deg);
+      }
+
+      .vp-nav.is-open .vp-nav__toggle-icon::after {
+        top: 0;
+        transform: rotate(-45deg);
+      }
+
+      .vp-nav__menu {
+        grid-area: menu;
+      }
+
+      @media (max-width: 767px) {
+        .vp-nav__toggle {
+          display: inline-flex;
+        }
+
+        .vp-nav__menu {
+          max-height: 0;
+          overflow: hidden;
+          opacity: 0;
+          visibility: hidden;
+          transition: max-height 0.3s ease, opacity 0.2s ease, visibility 0.3s;
+        }
+
+        .vp-nav.is-open .vp-nav__menu {
+          max-height: 420px;
+          opacity: 1;
+          visibility: visible;
+          padding-top: 12px;
+        }
+
+        .vp-nav__links {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 4px;
+        }
+
+        .vp-nav__links a {
+          display: block;
+          padding: 12px 14px;
+        }
+
+        .vp-nav__links .theme-toggle {
+          margin-left: 0;
+          width: 100%;
+          justify-content: flex-start;
+          padding: 12px 14px;
+          height: auto;
+          border-radius: 8px;
+        }
+
+        body.nav-open {
+          overflow: hidden;
         }
       }
 
       .vp-nav__brand {
+        grid-area: brand;
         font-weight: 700;
         font-size: 1.125rem;
         letter-spacing: -0.02em;
@@ -362,10 +484,16 @@
       }
 
       .exp-card {
-        padding: 24px 28px;
+        padding: 20px;
         border-radius: 12px;
         background: var(--vp-c-bg-alt);
         border: 1px solid var(--vp-c-divider);
+      }
+
+      @media (min-width: 768px) {
+        .exp-card {
+          padding: 24px 28px;
+        }
       }
 
       .exp-card__meta {
@@ -439,9 +567,19 @@
   <body>
     <a class="skip" href="#main">Skip to content</a>
 
-    <header class="vp-nav">
+    <header class="vp-nav" id="site-nav">
       <a class="vp-nav__brand" href="#">James<span>.</span></a>
-      <nav aria-label="Primary">
+      <button
+        type="button"
+        class="vp-nav__toggle"
+        id="nav-toggle"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="nav-menu"
+      >
+        <span class="vp-nav__toggle-icon" aria-hidden="true"></span>
+      </button>
+      <nav class="vp-nav__menu" id="nav-menu" aria-label="Primary">
         <ul class="vp-nav__links">
           <li><a href="#home">Home</a></li>
           <li><a href="#skills">Skills</a></li>
@@ -668,6 +806,40 @@
 
         document.getElementById('theme-toggle').addEventListener('click', function () {
           apply(!root.classList.contains('dark'));
+        });
+      })();
+
+      (function () {
+        var nav = document.getElementById('site-nav');
+        var toggle = document.getElementById('nav-toggle');
+        var menu = document.getElementById('nav-menu');
+        var mq = window.matchMedia('(min-width: 768px)');
+
+        function setOpen(open) {
+          nav.classList.toggle('is-open', open);
+          document.body.classList.toggle('nav-open', open);
+          toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+          toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        }
+
+        function closeMenu() {
+          setOpen(false);
+        }
+
+        toggle.addEventListener('click', function () {
+          setOpen(!nav.classList.contains('is-open'));
+        });
+
+        menu.querySelectorAll('a').forEach(function (link) {
+          link.addEventListener('click', closeMenu);
+        });
+
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') closeMenu();
+        });
+
+        mq.addEventListener('change', function (e) {
+          if (e.matches) closeMenu();
         });
       })();
     </script>
