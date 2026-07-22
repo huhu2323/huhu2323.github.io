@@ -1,0 +1,26 @@
+---
+layout: default
+title: Blog | James Masangcay
+description: Notes on software development from James Masangcay.
+permalink: /blog/
+---
+<section class="vp-section" id="blog" aria-labelledby="blog-title">
+  <h2 class="vp-section__title" id="blog-title">Blog</h2>
+  <p class="vp-section__lead">Notes on building software, one post at a time.</p>
+
+  {% if site.posts.size > 0 %}
+  <div class="blog-list">
+    {% for post in site.posts %}
+    <article class="blog-item">
+      <a class="blog-item__title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      <div class="blog-item__meta">{{ post.date | date: "%B %-d, %Y" }}</div>
+      {% if post.excerpt %}
+      <p class="blog-item__excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+      {% endif %}
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="blog-empty">No posts yet — check back soon.</p>
+  {% endif %}
+</section>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% include head.html %}
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    {% include nav.html %}
+
+    <main id="main">
+      {{ content }}
+    </main>
+
+    <footer class="vp-footer">
+      <p>© 2026 James Masangcay. All rights reserved.</p>
+    </footer>
+
+    {% include scripts.html %}
+  </body>
+</html>

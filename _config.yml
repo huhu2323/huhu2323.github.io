@@ -1,0 +1,14 @@
+title: James Masangcay
+description: Full Stack Developer portfolio and blog
+url: "https://huhu2323.github.io"
+baseurl: ""
+
+markdown: kramdown
+permalink: /blog/:year/:month/:day/:title/
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
+  - cms-auth
