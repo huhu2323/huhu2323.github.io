@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: huhu2323/huhu2323.github.io
-  branch: new_design
+  branch: master
   base_url: https://huhu2323-cms-auth.reshiramkyurem.workers.dev
   auth_endpoint: auth
 

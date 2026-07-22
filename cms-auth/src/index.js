@@ -85,49 +85,89 @@ async function handleCallback(request, env) {
   });
 }
 
-function renderSuccess(payloadJson) {
+function renderHandshakePage(kind, resultJson, statusText) {
+  const safeStatus = statusText.replace(/[<>&]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c]));
   return `<!DOCTYPE html>
 <html>
   <body>
+    <p>${safeStatus}</p>
+    <pre id="log" style="white-space: pre-wrap; font-size: 12px; background: #f0f0f0; padding: 12px;"></pre>
+    <button type="button" id="close-btn" style="display: none;">Close window</button>
     <script>
       (function () {
-        function receiveMessage(message) {
-          window.opener.postMessage(
-            "authorization:github:success:" + ${JSON.stringify(payloadJson)},
-            message.origin
-          );
-          window.removeEventListener("message", receiveMessage, false);
+        var logEl = document.getElementById("log");
+        function log(text) {
+          logEl.textContent += text + "\\n";
         }
-        window.addEventListener("message", receiveMessage, false);
-        window.opener.postMessage("authorizing:github", "*");
+
+        document.getElementById("close-btn").addEventListener("click", function () {
+          window.close();
+        });
+
+        try {
+          log("window.opener present: " + Boolean(window.opener));
+
+          if (!window.opener) {
+            log(
+              "No opener window found. This page must open as a popup from the CMS admin " +
+              "page - your browser likely blocked the popup or navigated in the same tab " +
+              "instead of opening a new one. Allow popups for this site and try again."
+            );
+            document.getElementById("close-btn").style.display = "inline-block";
+            return;
+          }
+
+          var handshakeDone = false;
+
+          function receiveMessage(message) {
+            log('received message from opener: "' + message.data + '" (origin ' + message.origin + ")");
+            handshakeDone = true;
+            try {
+              window.opener.postMessage(
+                "authorization:github:${kind}:" + ${JSON.stringify(resultJson)},
+                message.origin
+              );
+              log("sent authorization:github:${kind} payload back to opener at " + message.origin);
+            } catch (err) {
+              log("ERROR sending payload back to opener: " + err.message);
+              document.getElementById("close-btn").style.display = "inline-block";
+              return;
+            }
+            window.removeEventListener("message", receiveMessage, false);
+            log("Done. If the CMS window did not update, it rejected this payload (check its console).");
+            document.getElementById("close-btn").style.display = "inline-block";
+          }
+
+          window.addEventListener("message", receiveMessage, false);
+          log("posting authorizing:github to opener, opener.origin unknown from here (cross-origin)");
+          window.opener.postMessage("authorizing:github", "*");
+
+          setTimeout(function () {
+            if (!handshakeDone) {
+              log(
+                "Didn't hear back from the CMS window after 8s. It may not be listening, " +
+                "or a browser/extension is blocking postMessage."
+              );
+              document.getElementById("close-btn").style.display = "inline-block";
+            }
+          }, 8000);
+        } catch (err) {
+          log("UNCAUGHT ERROR: " + err.message);
+          document.getElementById("close-btn").style.display = "inline-block";
+        }
       })();
     </script>
-    Login successful, this window can be closed.
   </body>
 </html>`;
 }
 
+function renderSuccess(payloadJson) {
+  return renderHandshakePage("success", payloadJson, "Completing login...");
+}
+
 function renderError(message) {
-  const safe = message.replace(/[<>&]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c]));
-  return `<!DOCTYPE html>
-<html>
-  <body>
-    <script>
-      (function () {
-        function receiveMessage(message) {
-          window.opener.postMessage(
-            "authorization:github:error:" + ${JSON.stringify(JSON.stringify({ }))},
-            message.origin
-          );
-          window.removeEventListener("message", receiveMessage, false);
-        }
-        window.addEventListener("message", receiveMessage, false);
-        window.opener.postMessage("authorizing:github", "*");
-      })();
-    </script>
-    Login failed: ${safe}
-  </body>
-</html>`;
+  const payloadJson = JSON.stringify({ message });
+  return renderHandshakePage("error", payloadJson, "Login failed: " + message);
 }
 
 export default {
