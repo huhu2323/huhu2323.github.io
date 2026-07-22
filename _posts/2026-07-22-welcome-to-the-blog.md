@@ -7,6 +7,6 @@ This is the first post on my new blog, built right into this site with Jekyll an
 
 I'll be writing about the things I run into building software - Laravel, Node.js, React, Vue, and whatever else comes up along the way.
 
-Stay tuned for more.\
-\
-- James
+Stay tuned for more.
+
+* James
