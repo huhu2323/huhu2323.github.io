@@ -1,6 +1,6 @@
 ---
 layout: post
-title: We're having a son!
+title: We're expecting!
 date: 2026-07-22T21:08:00.000+08:00
 ---
 # After almost six years, we’re finally expecting! 
